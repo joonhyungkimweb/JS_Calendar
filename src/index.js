@@ -1,3 +1,3 @@
-import Callendar from './Components/Callendar.js';
+import Calendar from './Components/Calendar.js';
 
-new Callendar({ $target: document.querySelector('#app') });
+new Calendar({ $calendar: document.querySelector('#app') });
