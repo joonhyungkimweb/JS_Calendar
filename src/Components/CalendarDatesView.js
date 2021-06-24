@@ -13,7 +13,7 @@ export default class CalendarDatesView {
 
         const dateOffset = getDateOffset(initialDate);
 
-        this.dates = Array.from({ length: 35 }, (date, index) => new Date(this.year, this.month, index + dateOffset));
+        this.dates = Array.from({ length: 42 }, (date, index) => new Date(this.year, this.month, index + dateOffset));
     }
 
     render() {
