@@ -1,27 +1,43 @@
-const getDateOffset = (date) => 1 - new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+import {
+  getFirstDayOfWeek,
+  getFirstDayOfMonth,
+  DAY_IN_MILLISECONS,
+} from "../utils/DateUtils.js";
 
 export default class CalendarDatesView {
-    constructor({ $calendar, initialDate }) {
-        this.$target = document.createElement('table');
+  constructor({ $calendar, initialState }) {
+    this.$target = document.createElement("table");
 
-        $calendar.appendChild(this.$target);
+    $calendar.appendChild(this.$target);
 
-        this.state = initialDate;
+    this.state = initialState;
+  }
 
-        this.year = initialDate.getFullYear();
-        this.month = initialDate.getMonth();
+  get firstDate() {
+    return getFirstDayOfWeek(getFirstDayOfMonth(this.state));
+  }
 
-        const dateOffset = getDateOffset(initialDate);
+  get calendarDates() {
+    return Array.from(
+      { length: 42 },
+      (value, index) =>
+        new Date(this.firstDate.getTime() + DAY_IN_MILLISECONS * index)
+    );
+  }
 
-        this.dates = Array.from({ length: 42 }, (date, index) => new Date(this.year, this.month, index + dateOffset));
-    }
+  setState(newState) {
+    this.state = newState;
+    this.render();
+  }
 
-    render() {
-        this.$target.innerHTML = this.dates.reduce((acc, date, index) =>
-            `${acc}
-        ${index % 7 === 0 ? '<tr>' : ''}
+  render() {
+    this.$target.innerHTML = this.calendarDates.reduce(
+      (acc, date, index) =>
+        `${acc}
+      ${index % 7 === 0 ? "<tr>" : ""}
         <td>${date.getDate()}</td>
-        ${index % 7 === 6 ? '</tr>' : ''}`, '');
-    }
-
+      ${index % 7 === 6 ? "</tr>" : ""}`,
+      ""
+    );
+  }
 }
