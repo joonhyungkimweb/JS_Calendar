@@ -1,4 +1,5 @@
 import CalendarDatesView from "./CalendarDatesView.js";
+import CalendarHeaderView from "./CalendarHeaderView.js";
 
 export default class Calendar {
   state = {
@@ -11,14 +12,19 @@ export default class Calendar {
   constructor({ $calendar, options }) {
     this.$calendar = $calendar;
 
+    this.headerView = new CalendarHeaderView({
+      $calendar,
+      initialState: this.getState("today")
+    });
+
     this.datesView = new CalendarDatesView({
       $calendar,
       initialState: this.getState("today"),
     });
 
-
     this.bindComponentToState('today', this.datesView);
 
+    this.bindComponentToState('today', this.headerView);
 
   }
 
