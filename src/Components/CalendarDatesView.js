@@ -11,6 +11,8 @@ export default class CalendarDatesView {
     $calendar.appendChild(this.$target);
 
     this.state = initialState;
+
+    this.render();
   }
 
   get firstDate() {

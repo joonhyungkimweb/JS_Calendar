@@ -19,7 +19,6 @@ export default class Calendar {
 
     this.bindComponentToState('today', this.datesView);
 
-    this.setState("today", new Date());
 
   }
 
