@@ -1,3 +1,3 @@
 import Calendar from './Components/Calendar.js';
 
-new Calendar({ $calendar: document.querySelector('#app') });
+const cal = new Calendar({ $calendar: document.querySelector('#calendar') });
