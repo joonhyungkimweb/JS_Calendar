@@ -1,14 +1,32 @@
-import CalendarDatesView from './CalendarDatesView.js';
+import CalendarDatesView from "./CalendarDatesView.js";
 
 export default class Calendar {
-    constructor({ $calendar, options }) {
-        this.$calendar = $calendar;
-        this.datesView = new CalendarDatesView({ $calendar, initialDate: new Date() });
+  constructor({ $calendar, options }) {
+    this.$calendar = $calendar;
 
-        this.render();
-    }
+    this.state = {
+      today: {
+        value: new Date(),
+      },
+    };
 
-    render() {
-        this.datesView.render();
-    }
+    this.datesView = new CalendarDatesView({
+      $calendar,
+      initialState: this.getState("today"),
+    });
+
+    this.render();
+  }
+
+  getState(key) {
+    return this.state[key].value;
+  }
+
+  setState(key, newState) {
+    this.state[key] = newState;
+  }
+
+  render() {
+    this.datesView.render();
+  }
 }
