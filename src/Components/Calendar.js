@@ -1,5 +1,6 @@
 import CalendarDatesView from "./CalendarDatesView.js";
 import CalendarHeaderView from "./CalendarHeaderView.js";
+import { getPrevMonth, getNextMonth } from "../utils/DateUtils.js";
 
 export default class Calendar {
   state = {
@@ -14,12 +15,18 @@ export default class Calendar {
 
     this.headerView = new CalendarHeaderView({
       $calendar,
-      initialState: this.getState("today")
+      initialState: this.getState("today"),
+      onPrevMonth: () => {
+        this.setState("today", getPrevMonth(this.getState("today")));
+      },
+      onNextMonth: () => {
+        this.setState("today", getNextMonth(this.getState("today")));
+      }
     });
 
     this.datesView = new CalendarDatesView({
       $calendar,
-      initialState: this.getState("today"),
+      initialState: this.getState("today")
     });
 
     this.bindComponentToState('today', this.datesView);

@@ -1,7 +1,20 @@
 export default class CalendarHeaderView{
 
-    constructor({ $calendar, initialState}){
+    constructor({ $calendar, initialState, onPrevMonth, onNextMonth}){
         this.$target = document.createElement("div");
+        this.$prevMonthButton = document.createElement("button");
+        this.$prevMonthButton.innerHTML = "<";
+        this.$nextMonthButton = document.createElement("button");
+        this.$nextMonthButton.innerText = ">";
+        this.$yearMonthMonitor = document.createElement("div");
+
+        this.$prevMonthButton.addEventListener("click", onPrevMonth);
+
+        this.$nextMonthButton.addEventListener("click", onNextMonth);
+
+        this.$target.appendChild(this.$prevMonthButton);
+        this.$target.appendChild(this.$yearMonthMonitor);
+        this.$target.appendChild(this.$nextMonthButton);
 
         $calendar.appendChild(this.$target);
     
@@ -16,7 +29,7 @@ export default class CalendarHeaderView{
       }
 
     render(){
-        this.$target.innerHTML = `${this.state.getFullYear()}/${this.state.getMonth()}`
+        this.$yearMonthMonitor.innerHTML = `${this.state.getFullYear()}/${this.state.getMonth() + 1}`
     }
 
 }
