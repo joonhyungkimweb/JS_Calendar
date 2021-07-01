@@ -1,7 +1,7 @@
 import {
   getFirstDayOfWeek,
   getFirstDayOfMonth,
-  DAY_IN_MILLISECONS,
+  DAY_IN_MILLISECONDS,
 } from "../utils/DateUtils.js";
 
 export default class CalendarDatesView {
@@ -23,7 +23,7 @@ export default class CalendarDatesView {
     return Array.from(
       { length: 42 },
       (value, index) =>
-        new Date(this.firstDate.getTime() + DAY_IN_MILLISECONS * index)
+        new Date(this.firstDate.getTime() + DAY_IN_MILLISECONDS * index)
     );
   }
 
