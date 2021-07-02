@@ -1,12 +1,12 @@
 export default class CalendarHeaderView{
 
     constructor({ $calendar, initialState, onPrevMonth, onNextMonth}){
-        this.$target = document.createElement("div");
+        this.$target = document.createElement("header");
         this.$prevMonthButton = document.createElement("button");
         this.$prevMonthButton.innerHTML = "<";
         this.$nextMonthButton = document.createElement("button");
         this.$nextMonthButton.innerText = ">";
-        this.$yearMonthMonitor = document.createElement("div");
+        this.$yearMonthMonitor = document.createElement("h1");
 
         this.$prevMonthButton.addEventListener("click", onPrevMonth);
 
