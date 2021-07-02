@@ -12,8 +12,8 @@ export default class CalendarHeaderView{
 
         this.$nextMonthButton.addEventListener("click", onNextMonth);
 
-        this.$target.appendChild(this.$prevMonthButton);
         this.$target.appendChild(this.$yearMonthMonitor);
+        this.$target.appendChild(this.$prevMonthButton);
         this.$target.appendChild(this.$nextMonthButton);
 
         $calendar.appendChild(this.$target);
