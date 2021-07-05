@@ -1,0 +1,19 @@
+{
+  "name": "js_callnedar",
+  "version": "1.0.0",
+  "description": "JavaScript로 달력 만들기",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joonhyungkimweb/JS_Calendar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joonhyungkimweb/JS_Calendar/issues"
+  },
+  "homepage": "https://github.com/joonhyungkimweb/JS_Calendar#readme"
+}
