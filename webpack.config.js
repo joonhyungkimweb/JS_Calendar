@@ -1,5 +1,5 @@
 const path = require("path");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
@@ -11,11 +11,15 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
-  	plugins: [
-		new HtmlWebpackPlugin({template: './index.html'})
-	],
+  plugins: [new HtmlWebpackPlugin({ template: "./index.html" })],
   resolve: {
     modules: ["node_modules"],
     extensions: [".js", ".json", ".jsx", ".css"],
+  },
+  devServer: {
+    contentBase: "./dist",
+    host: "0.0.0.0",
+    disableHostCheck: true,
+    hot: true,
   },
 };
