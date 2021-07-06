@@ -1,38 +1,37 @@
-import CalendarDatesView from "./CalendarDatesView.js";
-import CalendarHeaderView from "./CalendarHeaderView.js";
-import { getPrevMonth, getNextMonth } from "../utils/DateUtils.js";
+import CalendarDatesView from './CalendarDatesView';
+import CalendarHeaderView from './CalendarHeaderView';
+import { getPrevMonth, getNextMonth } from '../utils/DateUtils';
 
 export default class Calendar {
-  state = {
-    today: {
-      value: new Date(),
-      components: []
-    },
-  };
-
   constructor({ $calendar, options }) {
     this.$calendar = $calendar;
 
+    this.state = {
+      today: {
+        value: new Date(),
+        components: [],
+      },
+    };
+
     this.headerView = new CalendarHeaderView({
       $calendar,
-      initialState: this.getState("today"),
+      initialState: this.getState('today'),
       onPrevMonth: () => {
-        this.setState("today", getPrevMonth(this.getState("today")));
+        this.setState('today', getPrevMonth(this.getState('today')));
       },
       onNextMonth: () => {
-        this.setState("today", getNextMonth(this.getState("today")));
-      }
+        this.setState('today', getNextMonth(this.getState('today')));
+      },
     });
 
     this.datesView = new CalendarDatesView({
       $calendar,
-      initialState: this.getState("today")
+      initialState: this.getState('today'),
     });
 
     this.bindComponentToState('today', this.datesView);
 
     this.bindComponentToState('today', this.headerView);
-
   }
 
   bindComponentToState(stateKey, component) {
@@ -47,5 +46,4 @@ export default class Calendar {
     this.state[key].value = newState;
     this.state[key].components.forEach((component) => component.setState(this.getState(key)));
   }
-
 }

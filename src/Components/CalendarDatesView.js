@@ -2,17 +2,17 @@ import {
   getFirstDayOfWeek,
   getFirstDayOfMonth,
   DAY_IN_MILLISECONDS,
-  DAYS_NAME
-} from "../utils/DateUtils.js";
+  DAYS_NAME,
+} from '../utils/DateUtils';
 
 export default class CalendarDatesView {
   constructor({ $calendar, initialState }) {
-    this.$target = document.createElement("table");
-    this.$daysHeader = document.createElement("thead");
-    this.$daysHeader.innerHTML = DAYS_NAME.reduce((acc, day) => `${acc}<td>${day}</td>`,"");
+    this.$target = document.createElement('table');
+    this.$daysHeader = document.createElement('thead');
+    this.$daysHeader.innerHTML = DAYS_NAME.reduce((acc, day) => `${acc}<td>${day}</td>`, '');
     this.$target.appendChild(this.$daysHeader);
-    
-    this.$daysBody = document.createElement("tbody");
+
+    this.$daysBody = document.createElement('tbody');
     this.$target.appendChild(this.$daysBody);
 
     $calendar.appendChild(this.$target);
@@ -29,8 +29,7 @@ export default class CalendarDatesView {
   get calendarDates() {
     return Array.from(
       { length: 42 },
-      (value, index) =>
-        new Date(this.firstDate.getTime() + DAY_IN_MILLISECONDS * index)
+      (value, index) => new Date(this.firstDate.getTime() + DAY_IN_MILLISECONDS * index),
     );
   }
 
@@ -41,12 +40,11 @@ export default class CalendarDatesView {
 
   render() {
     this.$daysBody.innerHTML = this.calendarDates.reduce(
-      (acc, date, index) =>
-        `${acc}
-      ${index % 7 === 0 ? "<tr>" : ""}
+      (acc, date, index) => `${acc}
+      ${index % 7 === 0 ? '<tr>' : ''}
         <td>${date.getDate()}</td>
-      ${index % 7 === 6 ? "</tr>" : ""}`,
-      ""
+      ${index % 7 === 6 ? '</tr>' : ''}`,
+      '',
     );
   }
 }
