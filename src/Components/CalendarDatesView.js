@@ -3,43 +3,65 @@ import {
   getFirstDayOfMonth,
   DAY_IN_MILLISECONDS,
   DAYS_NAME,
-} from '../utils/DateUtils';
+}
+from '../utils/DateUtils';
 
-export default class CalendarDatesView {
-  constructor({ $calendar, initialState }) {
-    this.$target = document.createElement('table');
-    this.$daysHeader = document.createElement('thead');
-    this.$daysHeader.innerHTML = DAYS_NAME.reduce((acc, day) => `${acc}<td>${day}</td>`, '');
-    this.$target.appendChild(this.$daysHeader);
+/*global HTMLElement*/
+export class CalendarDatesViewElements extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
 
-    this.$daysBody = document.createElement('tbody');
-    this.$target.appendChild(this.$daysBody);
+    this.shadowRoot.innerHTML = `
+      <table>
+        <thead>${DAYS_NAME.reduce((acc, day) => `${acc}<td>${day}</td>`, '')}</thead>
+        <tbody></tbody>
+      </table>
+    `
 
-    $calendar.appendChild(this.$target);
+    this.$datesBody = this.shadowRoot.querySelector('tbody')
+  }
 
-    this.state = initialState;
-
+  connectedCallback() {
     this.render();
+  }
+
+  adoptCallback() {
+
+  }
+
+  attributeChangedCallback(attrName, oldVal, newVal) {
+    this.render();
+  }
+
+  static get observedAttributes() {
+    return ['date'];
+  }
+
+  set date(newDate) {
+    this.setAttribute('date', newDate)
+  }
+
+  get date() {
+    return new Date(this.getAttribute('date'));
   }
 
   get firstDate() {
-    return getFirstDayOfWeek(getFirstDayOfMonth(this.state));
+    return getFirstDayOfWeek(getFirstDayOfMonth(this.date));
   }
 
   get calendarDates() {
-    return Array.from(
-      { length: 42 },
+    return Array.from({ length: 42 },
       (value, index) => new Date(this.firstDate.getTime() + DAY_IN_MILLISECONDS * index),
     );
   }
-
-  setState(newState) {
-    this.state = newState;
-    this.render();
+  
+  disconnectedCallback() {
+    
   }
 
   render() {
-    this.$daysBody.innerHTML = this.calendarDates.reduce(
+    this.$datesBody.innerHTML = this.calendarDates.reduce(
       (acc, date, index) => `${acc}
       ${index % 7 === 0 ? '<tr>' : ''}
         <td>${date.getDate()}</td>
@@ -47,4 +69,5 @@ export default class CalendarDatesView {
       '',
     );
   }
+
 }

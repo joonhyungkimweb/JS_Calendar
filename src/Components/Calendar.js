@@ -1,4 +1,3 @@
-import CalendarDatesView from './CalendarDatesView';
 import CalendarHeaderView from './CalendarHeaderView';
 import { getPrevMonth, getNextMonth } from '../utils/DateUtils';
 
@@ -24,11 +23,12 @@ export default class Calendar {
       },
     });
 
-    this.datesView = new CalendarDatesView({
-      $calendar,
-      initialState: this.getState('today'),
-    });
-
+    this.datesView = document.createElement('calendar-dates-view')
+    
+    this.datesView.date = new Date();
+    
+    this.$calendar.appendChild(this.datesView);
+    
     this.bindComponentToState('today', this.datesView);
 
     this.bindComponentToState('today', this.headerView);
