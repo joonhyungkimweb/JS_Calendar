@@ -1,5 +1,7 @@
-import CalendarHeaderView from './CalendarHeaderView';
 import { getPrevMonth, getNextMonth } from '../utils/DateUtils';
+
+import CalendarHeaderView from './CalendarHeaderView';
+import CalendarDatesView from './CalendarDatesView';
 
 export default class Calendar {
   constructor({ $calendar, options }) {
@@ -13,25 +15,24 @@ export default class Calendar {
     };
 
     this.headerView = new CalendarHeaderView({
-      $calendar,
-      initialState: this.getState('today'),
       onPrevMonth: () => {
-        this.setState('today', getPrevMonth(this.getState('today')));
+        // this.setState('today', getPrevMonth(this.getState('today')));
       },
       onNextMonth: () => {
-        this.setState('today', getNextMonth(this.getState('today')));
+        // this.setState('today', getNextMonth(this.getState('today')));
       },
     });
-
-    this.datesView = document.createElement('calendar-dates-view')
     
+    this.headerView.date = new Date();
+
+    this.$calendar.appendChild(this.headerView);
+
+    this.datesView = new CalendarDatesView();
+
     this.datesView.date = new Date();
-    
-    this.$calendar.appendChild(this.datesView);
-    
-    this.bindComponentToState('today', this.datesView);
 
-    this.bindComponentToState('today', this.headerView);
+    this.$calendar.appendChild(this.datesView);
+
   }
 
   bindComponentToState(stateKey, component) {

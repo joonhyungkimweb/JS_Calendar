@@ -1,35 +1,48 @@
-export default class CalendarHeaderView {
-  constructor({
-    $calendar, initialState, onPrevMonth, onNextMonth,
-  }) {
-    this.$target = document.createElement('header');
-    this.$prevMonthButton = document.createElement('button');
-    this.$prevMonthButton.innerHTML = '<';
-    this.$nextMonthButton = document.createElement('button');
-    this.$nextMonthButton.innerText = '>';
-    this.$yearMonthMonitor = document.createElement('h1');
+/* global HTMLElement */
+export default class CalendarHeaderView extends HTMLElement {
+  constructor({ initialState }) {
+    super();
 
-    this.$prevMonthButton.addEventListener('click', onPrevMonth);
+    this.attachShadow({ mode: 'open' });
+    
+    this.shadowRoot.innerHTML = `
+      <h1></h1>
+      <button id="prev-button"> < </button>
+      <button id="next-button"> > </button>
+    `
+    
+    this.$yearMonthMonitor = this.shadowRoot.querySelector('h1')
+  }
 
-    this.$nextMonthButton.addEventListener('click', onNextMonth);
-
-    this.$target.appendChild(this.$yearMonthMonitor);
-    this.$target.appendChild(this.$prevMonthButton);
-    this.$target.appendChild(this.$nextMonthButton);
-
-    $calendar.appendChild(this.$target);
-
-    this.state = initialState;
-
+  connectedCallback() {
     this.render();
   }
 
-  setState(newState) {
-    this.state = newState;
+  adoptCallback() {
+
+  }
+
+  attributeChangedCallback(attrName, oldVal, newVal) {
     this.render();
+  }
+
+  static get observedAttributes() {
+    return ['date'];
+  }
+
+  set date(newDate) {
+    this.setAttribute('date', newDate)
+  }
+
+  get date() {
+    return new Date(this.getAttribute('date'));
+  }
+
+  disconnectedCallback() {
+
   }
 
   render() {
-    this.$yearMonthMonitor.innerHTML = `${this.state.getFullYear()}/${this.state.getMonth() + 1}`;
+    this.$yearMonthMonitor.innerHTML = `${this.date.getFullYear()}/${this.date.getMonth() + 1}`;
   }
 }

@@ -7,7 +7,7 @@ import {
 from '../utils/DateUtils';
 
 /*global HTMLElement*/
-export class CalendarDatesViewElements extends HTMLElement {
+export default class CalendarDatesView extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
