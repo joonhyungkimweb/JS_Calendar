@@ -24,10 +24,6 @@ export default class CalendarHeaderView extends HTMLElement {
     this.render();
   }
 
-  adoptCallback() {
-
-  }
-
   attributeChangedCallback(attrName, oldVal, newVal) {
     this.render();
   }
@@ -42,10 +38,6 @@ export default class CalendarHeaderView extends HTMLElement {
 
   get date() {
     return new Date(this.getAttribute('date'));
-  }
-
-  disconnectedCallback() {
-
   }
 
   render() {

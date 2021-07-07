@@ -26,10 +26,6 @@ export default class CalendarDatesView extends HTMLElement {
     this.render();
   }
 
-  adoptCallback() {
-
-  }
-
   attributeChangedCallback(attrName, oldVal, newVal) {
     this.render();
   }
@@ -54,10 +50,6 @@ export default class CalendarDatesView extends HTMLElement {
     return Array.from({ length: 42 },
       (value, index) => new Date(this.firstDate.getTime() + DAY_IN_MILLISECONDS * index),
     );
-  }
-  
-  disconnectedCallback() {
-    
   }
 
   render() {
