@@ -5,9 +5,11 @@ export default class CalendarHeaderView extends HTMLElement {
     this.attachShadow({ mode: 'open' });
 
     this.shadowRoot.innerHTML = `
+    <header>
       <h1></h1>
       <button id="prev-button"> < </button>
       <button id="next-button"> > </button>
+    </header>
     `;
 
     this.$yearMonthMonitor = this.shadowRoot.querySelector('h1');
