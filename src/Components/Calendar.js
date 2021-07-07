@@ -3,7 +3,6 @@ import { getPrevMonth, getNextMonth } from '../utils/DateUtils';
 import CalendarHeaderView from './CalendarHeaderView';
 import CalendarDatesView from './CalendarDatesView';
 
-/* global HTMLElement */
 export default class Calendar extends HTMLElement {
   constructor() {
     super();
@@ -12,16 +11,16 @@ export default class Calendar extends HTMLElement {
     this.components = [
       new CalendarHeaderView({
         onPrevMonth: () => {
-          this.date = getPrevMonth(this.date)
+          this.date = getPrevMonth(this.date);
         },
         onNextMonth: () => {
-          this.date = getNextMonth(this.date)
+          this.date = getNextMonth(this.date);
         },
       }),
-      new CalendarDatesView()
-    ]
+      new CalendarDatesView(),
+    ];
   }
-  
+
   connectedCallback() {
     this.date = new Date();
     this.render();
@@ -32,11 +31,11 @@ export default class Calendar extends HTMLElement {
   }
 
   attributeChangedCallback(attrName, oldVal, newVal) {
-    this.components.forEach(component => {
-      if(component[attrName] != null){
+    this.components.forEach((component) => {
+      if (component[attrName] != null) {
         component[attrName] = newVal;
       }
-    })
+    });
   }
 
   set date(newDate) {
@@ -50,9 +49,8 @@ export default class Calendar extends HTMLElement {
   bindComponentToState(stateKey, component) {
     this.state[stateKey].components.push(component);
   }
-  
-  render(){
-    this.components.forEach(component => this.shadowRoot.appendChild(component));
-  }
 
+  render() {
+    this.components.forEach((component) => this.shadowRoot.appendChild(component));
+  }
 }

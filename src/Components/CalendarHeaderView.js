@@ -1,4 +1,3 @@
-/* global HTMLElement */
 export default class CalendarHeaderView extends HTMLElement {
   constructor({ onPrevMonth, onNextMonth }) {
     super();
@@ -9,22 +8,21 @@ export default class CalendarHeaderView extends HTMLElement {
       <h1></h1>
       <button id="prev-button"> < </button>
       <button id="next-button"> > </button>
-    `
+    `;
 
-    this.$yearMonthMonitor = this.shadowRoot.querySelector('h1')
-    this.$prevButton = this.shadowRoot.querySelector('#prev-button')
-    this.$nextButton = this.shadowRoot.querySelector('#next-button')
+    this.$yearMonthMonitor = this.shadowRoot.querySelector('h1');
+    this.$prevButton = this.shadowRoot.querySelector('#prev-button');
+    this.$nextButton = this.shadowRoot.querySelector('#next-button');
 
-    this.$prevButton.addEventListener('click', onPrevMonth)
-    this.$nextButton.addEventListener('click', onNextMonth)
-    
+    this.$prevButton.addEventListener('click', onPrevMonth);
+    this.$nextButton.addEventListener('click', onNextMonth);
   }
 
   connectedCallback() {
     this.render();
   }
 
-  attributeChangedCallback(attrName, oldVal, newVal) {
+  attributeChangedCallback() {
     this.render();
   }
 
@@ -33,7 +31,7 @@ export default class CalendarHeaderView extends HTMLElement {
   }
 
   set date(newDate) {
-    this.setAttribute('date', newDate)
+    this.setAttribute('date', newDate);
   }
 
   get date() {

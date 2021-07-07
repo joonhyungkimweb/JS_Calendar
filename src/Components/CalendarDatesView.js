@@ -4,9 +4,8 @@ import {
   DAY_IN_MILLISECONDS,
   DAYS_NAME,
 }
-from '../utils/DateUtils';
+  from '../utils/DateUtils';
 
-/*global HTMLElement*/
 export default class CalendarDatesView extends HTMLElement {
   constructor() {
     super();
@@ -17,16 +16,16 @@ export default class CalendarDatesView extends HTMLElement {
         <thead>${DAYS_NAME.reduce((acc, day) => `${acc}<td>${day}</td>`, '')}</thead>
         <tbody></tbody>
       </table>
-    `
+    `;
 
-    this.$datesBody = this.shadowRoot.querySelector('tbody')
+    this.$datesBody = this.shadowRoot.querySelector('tbody');
   }
 
   connectedCallback() {
     this.render();
   }
 
-  attributeChangedCallback(attrName, oldVal, newVal) {
+  attributeChangedCallback() {
     this.render();
   }
 
@@ -35,7 +34,7 @@ export default class CalendarDatesView extends HTMLElement {
   }
 
   set date(newDate) {
-    this.setAttribute('date', newDate)
+    this.setAttribute('date', newDate);
   }
 
   get date() {
@@ -48,8 +47,7 @@ export default class CalendarDatesView extends HTMLElement {
 
   get calendarDates() {
     return Array.from({ length: 42 },
-      (value, index) => new Date(this.firstDate.getTime() + DAY_IN_MILLISECONDS * index),
-    );
+      (value, index) => new Date(this.firstDate.getTime() + DAY_IN_MILLISECONDS * index));
   }
 
   render() {
@@ -61,5 +59,4 @@ export default class CalendarDatesView extends HTMLElement {
       '',
     );
   }
-
 }
