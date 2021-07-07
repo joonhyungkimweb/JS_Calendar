@@ -3,10 +3,12 @@ import { getPrevMonth, getNextMonth } from '../utils/DateUtils';
 import CalendarHeaderView from './CalendarHeaderView';
 import CalendarDatesView from './CalendarDatesView';
 
-export default class Calendar {
-  constructor({ $calendar, options }) {
-    this.$calendar = $calendar;
-
+/* global HTMLElement */
+export default class Calendar extends HTMLElement{
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    
     this.state = {
       date: {
         value: new Date(),
@@ -32,12 +34,12 @@ export default class Calendar {
     
     this.setState('date', new Date())
     
-    this.$calendar.appendChild(this.headerView);
+    this.shadowRoot.appendChild(this.headerView);
 
-    this.$calendar.appendChild(this.datesView);
+    this.shadowRoot.appendChild(this.datesView);
 
   }
-
+  
   bindComponentToState(stateKey, component) {
     this.state[stateKey].components.push(component);
   }
