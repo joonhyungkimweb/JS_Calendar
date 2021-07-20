@@ -1,3 +1,40 @@
+const style = `
+  <style>
+    header {
+      display : grid;
+      grid-template-columns: 1fr 7fr 1fr;
+      grid-template-areas:
+        "prev title next";
+    }
+    
+    h1 {
+      grid-area : title;
+      text-align : center;
+      margin : 0;
+    }
+    
+    #prev-button {
+      grid-area : prev;
+    }
+    
+    #next-button {
+      grid-area : next;
+    }
+    
+    button {
+      background-color : transparent;
+      border : 0;
+      font-weight : 900;
+      cursor : pointer;
+    }
+    
+    button:hover {
+      background : #f0ffff;
+    }
+    
+  </style>
+`
+
 export default class CalendarHeaderView extends HTMLElement {
   constructor({ onPrevMonth, onNextMonth }) {
     super();
@@ -5,9 +42,10 @@ export default class CalendarHeaderView extends HTMLElement {
     this.attachShadow({ mode: 'open' });
 
     this.shadowRoot.innerHTML = `
+    ${style}
     <header>
-      <h1></h1>
       <button id="prev-button"> < </button>
+      <h1></h1>
       <button id="next-button"> > </button>
     </header>
     `;
