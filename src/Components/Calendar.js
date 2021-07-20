@@ -6,7 +6,7 @@ import CalendarDatesView from './CalendarDatesView';
 const style = `
   <style>
     section {
-      display : flex;
+      display : grid;
       justify-content : center;
     }
   </style>
