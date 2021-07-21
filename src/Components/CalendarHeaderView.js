@@ -33,7 +33,7 @@ const style = `
     }
     
   </style>
-`
+`;
 
 export default class CalendarHeaderView extends HTMLElement {
   constructor({ onPrevMonth, onNextMonth }) {

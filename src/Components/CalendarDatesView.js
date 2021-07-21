@@ -5,6 +5,7 @@ import {
   DAYS_NAME,
 }
   from '../utils/DateUtils';
+
 const style = `
   <style>
     td:nth-child(1){
@@ -19,7 +20,7 @@ const style = `
       color : #D3D3D3;
     }
   </style>
-`
+`;
 
 export default class CalendarDatesView extends HTMLElement {
   constructor() {
@@ -69,7 +70,7 @@ export default class CalendarDatesView extends HTMLElement {
   render() {
     this.$datesBody.innerHTML = this.calendarDates.reduce(
       (acc, date, index) => `${acc}
-      ${index % 7 === 0 ? `<tr>` : ''}
+      ${index % 7 === 0 ? '<tr>' : ''}
         <td ${date.getMonth() !== this.date.getMonth() ? 'class="not-current-month"' : ''}>${date.getDate()}</td>
       ${index % 7 === 6 ? '</tr>' : ''}`,
       '',

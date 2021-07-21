@@ -10,13 +10,13 @@ const style = `
       justify-content : center;
     }
   </style>
-`
+`;
 
 export default class Calendar extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
-    
+
     this.shadowRoot.innerHTML = `
       ${style}
       <section>
