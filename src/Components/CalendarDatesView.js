@@ -5,6 +5,21 @@ import {
   DAYS_NAME,
 }
   from '../utils/DateUtils';
+const style = `
+  <style>
+    td:nth-child(1){
+      color : red;
+    }
+    
+    td:nth-child(7){
+      color : blue;
+    }
+    
+    td.not-current-month{
+      color : #D3D3D3;
+    }
+  </style>
+`
 
 export default class CalendarDatesView extends HTMLElement {
   constructor() {
@@ -12,8 +27,9 @@ export default class CalendarDatesView extends HTMLElement {
     this.attachShadow({ mode: 'open' });
 
     this.shadowRoot.innerHTML = `
+      ${style}
       <table>
-        <thead>${DAYS_NAME.reduce((acc, day) => `${acc}<td>${day}</td>`, '')}</thead>
+        <thead>${DAYS_NAME.reduce((acc, day, index) => `${acc}<td>${day}</td>`, '')}</thead>
         <tbody></tbody>
       </table>
     `;
@@ -53,8 +69,8 @@ export default class CalendarDatesView extends HTMLElement {
   render() {
     this.$datesBody.innerHTML = this.calendarDates.reduce(
       (acc, date, index) => `${acc}
-      ${index % 7 === 0 ? '<tr>' : ''}
-        <td>${date.getDate()}</td>
+      ${index % 7 === 0 ? `<tr>` : ''}
+        <td ${date.getMonth() !== this.date.getMonth() ? 'class="not-current-month"' : ''}>${date.getDate()}</td>
       ${index % 7 === 6 ? '</tr>' : ''}`,
       '',
     );
