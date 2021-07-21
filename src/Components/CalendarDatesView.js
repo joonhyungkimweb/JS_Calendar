@@ -8,6 +8,20 @@ import {
 
 const style = `
   <style>
+    table {
+      border: 0.5px solid #444444;
+      border-collapse: collapse;
+    }
+
+    td {
+      border: 0.5px solid #444444;
+      padding : 10px;
+    }
+    
+    tbody {
+      text-align : right;
+    }
+
     td:nth-child(1){
       color : red;
     }
@@ -18,6 +32,10 @@ const style = `
     
     td.not-current-month{
       color : #D3D3D3;
+    }
+
+    td.today{
+      background-color : #ffffaa;
     }
   </style>
 `;
@@ -71,9 +89,23 @@ export default class CalendarDatesView extends HTMLElement {
     this.$datesBody.innerHTML = this.calendarDates.reduce(
       (acc, date, index) => `${acc}
       ${index % 7 === 0 ? '<tr>' : ''}
-        <td ${date.getMonth() !== this.date.getMonth() ? 'class="not-current-month"' : ''}>${date.getDate()}</td>
+        <td class="${this.addTdClasses(date)}">${date.getDate()}</td>
       ${index % 7 === 6 ? '</tr>' : ''}`,
       '',
     );
+  }
+
+  addTdClasses(date) {
+    const classNames = [];
+
+    if(date.toLocaleDateString() === new Date().toLocaleDateString()) {
+      classNames.push('today');
+    }
+
+    if(date.getMonth() !== this.date.getMonth()) {
+      classNames.push('not-current-month');
+    }
+
+    return classNames.join(' ');
   }
 }
