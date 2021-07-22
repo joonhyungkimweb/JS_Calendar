@@ -6,8 +6,7 @@ import CalendarDatesView from './CalendarDatesView';
 const style = `
   <style>
     section {
-      display : grid;
-      justify-content : center;
+      min-width : 320px;
     }
   </style>
 `;

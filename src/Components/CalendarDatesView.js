@@ -9,19 +9,26 @@ import {
 const style = `
   <style>
     table {
-      border: 0.5px solid #444444;
-      border-collapse: collapse;
+      table-layout : fixed;
+      width : 100%;
     }
-
-    td {
-      border: 0.5px solid #444444;
-      padding : 10px;
+    
+    thead {
+      text-align : center;  
     }
     
     tbody {
       text-align : right;
     }
-
+    
+    tbody td {
+      padding-bottom: 6%;
+    }
+    
+    tbody td:hover {
+      background-color : #f0f0f0
+    }
+    
     td:nth-child(1){
       color : red;
     }

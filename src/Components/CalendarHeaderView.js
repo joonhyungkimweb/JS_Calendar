@@ -2,9 +2,10 @@ const style = `
   <style>
     header {
       display : grid;
-      grid-template-columns: 1fr 7fr 1fr;
+      grid-template-columns: 1fr 10fr 1fr;
       grid-template-areas:
         "prev title next";
+      padding-bottom : 2rem;
     }
     
     h1 {
