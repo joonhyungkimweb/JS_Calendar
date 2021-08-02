@@ -37,10 +37,10 @@ const style = `
 `;
 
 export default class CalendarHeaderView extends HTMLElement {
-  constructor({ onPrevMonth, onNextMonth }) {
+  constructor() {
     super();
 
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({ mode: "open" });
 
     this.shadowRoot.innerHTML = `
     ${style}
@@ -51,12 +51,9 @@ export default class CalendarHeaderView extends HTMLElement {
     </header>
     `;
 
-    this.$yearMonthMonitor = this.shadowRoot.querySelector('h1');
-    this.$prevButton = this.shadowRoot.querySelector('#prev-button');
-    this.$nextButton = this.shadowRoot.querySelector('#next-button');
-
-    this.$prevButton.addEventListener('click', onPrevMonth);
-    this.$nextButton.addEventListener('click', onNextMonth);
+    this.$yearMonthMonitor = this.shadowRoot.querySelector("h1");
+    this.$prevButton = this.shadowRoot.querySelector("#prev-button");
+    this.$nextButton = this.shadowRoot.querySelector("#next-button");
   }
 
   connectedCallback() {
@@ -67,19 +64,26 @@ export default class CalendarHeaderView extends HTMLElement {
     this.render();
   }
 
+  attachEvents({ onPrevMonth, onNextMonth }) {
+    this.$prevButton.addEventListener("click", onPrevMonth);
+    this.$nextButton.addEventListener("click", onNextMonth);
+  }
+
   static get observedAttributes() {
-    return ['date'];
+    return ["date"];
   }
 
   set date(newDate) {
-    this.setAttribute('date', newDate);
+    this.setAttribute("date", newDate);
   }
 
   get date() {
-    return new Date(this.getAttribute('date'));
+    return new Date(this.getAttribute("date"));
   }
 
   render() {
-    this.$yearMonthMonitor.innerHTML = `${this.date.getFullYear()}/${this.date.getMonth() + 1}`;
+    this.$yearMonthMonitor.innerHTML = `${this.date.getFullYear()}/${
+      this.date.getMonth() + 1
+    }`;
   }
 }

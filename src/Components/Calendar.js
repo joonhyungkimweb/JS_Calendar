@@ -1,7 +1,4 @@
-import { getPrevMonth, getNextMonth } from '../utils/DateUtils';
-
-import CalendarHeaderView from './CalendarHeaderView';
-import CalendarDatesView from './CalendarDatesView';
+import { getPrevMonth, getNextMonth } from "../utils/DateUtils";
 
 const style = `
   <style>
@@ -14,25 +11,38 @@ const style = `
 export default class Calendar extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({ mode: "open" });
 
     this.shadowRoot.innerHTML = `
       ${style}
       <section>
+        <calendar-header-view date="${this.date}"> </calendar-header-view>
+        <calendar-dates-view date="${this.date}"> </calendar-dates-view>
+        <calendar-date-modal date="${this.date}" visible> </calendar-date-modal>
       </section>
     `;
 
-    this.components = [
-      new CalendarHeaderView({
-        onPrevMonth: () => {
-          this.date = getPrevMonth(this.date);
-        },
-        onNextMonth: () => {
-          this.date = getNextMonth(this.date);
-        },
-      }),
-      new CalendarDatesView(),
-    ];
+    const headerView = this.shadowRoot.querySelector("calendar-header-view");
+    const datesView = this.shadowRoot.querySelector("calendar-dates-view");
+    const dateModal = this.shadowRoot.querySelector("calendar-date-modal");
+
+    headerView.attachEvents({
+      onPrevMonth: () => {
+        this.date = getPrevMonth(this.date);
+      },
+      onNextMonth: () => {
+        this.date = getNextMonth(this.date);
+      },
+    });
+
+    datesView.attatchEvents({
+      onClick : (date) => {
+        dateModal.date = date;
+        dateModal.visible = true;
+      }
+    })
+
+    this.$children = [headerView, datesView, dateModal];
   }
 
   connectedCallback() {
@@ -41,30 +51,30 @@ export default class Calendar extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['date'];
+    return ["date"];
   }
 
   attributeChangedCallback(attrName, oldVal, newVal) {
-    this.components.forEach((component) => {
-      if (component[attrName] != null) {
-        component[attrName] = newVal;
-      }
-    });
+    if (oldVal !== newVal) {
+      this.$children.forEach((child) => {
+        if (child[attrName] != null) {
+          child[attrName] = newVal;
+        }
+      });
+    }
   }
 
   set date(newDate) {
-    this.setAttribute('date', newDate);
+    this.setAttribute("date", newDate);
   }
 
   get date() {
-    return new Date(this.getAttribute('date'));
+    return new Date(this.getAttribute("date"));
   }
 
   bindComponentToState(stateKey, component) {
     this.state[stateKey].components.push(component);
   }
 
-  render() {
-    this.components.forEach((component) => this.shadowRoot.querySelector('section').appendChild(component));
-  }
+  render() {}
 }

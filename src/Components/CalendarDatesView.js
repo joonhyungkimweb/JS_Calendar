@@ -96,7 +96,7 @@ export default class CalendarDatesView extends HTMLElement {
     this.$datesBody.innerHTML = this.calendarDates.reduce(
       (acc, date, index) => `${acc}
       ${index % 7 === 0 ? '<tr>' : ''}
-        <td class="${this.addTdClasses(date)}">${date.getDate()}</td>
+        <td data-date="${date}" class="${this.addTdClasses(date)}">${date.getDate()}</td>
       ${index % 7 === 6 ? '</tr>' : ''}`,
       '',
     );
@@ -114,5 +114,13 @@ export default class CalendarDatesView extends HTMLElement {
     }
 
     return classNames.join(' ');
+  }
+
+  attatchEvents({ onClick }){
+    this.$datesBody.addEventListener('click', ({ target : { nodeName, dataset : { date }}}) => {
+      if( nodeName === "TD"){
+        onClick(date);
+      }
+    })
   }
 }
